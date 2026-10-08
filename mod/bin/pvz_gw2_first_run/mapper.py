@@ -61,12 +61,21 @@ class SoundMapper:
         gw2_source values look like
             'pvz_gw2/characters/plants/peashooter/vo/battlecry/*.sb'
         and the extractor writes files flat under cache/raw/ keyed on their
-        bundle path. We match by substring of the stem.
+        bundle path like
+            raw/plants/peashooter/vo/battlecry/pea_01.wav
+        (no leading 'characters/' segment). We match by substring of the
+        trailing path, so strip BOTH the top-level 'pvz_gw2/' token AND the
+        'characters/' infix before comparing.
         """
         if not self.raw_dir.exists():
             return None
-        # Strip the leading top-level token (pvz_gw2/...) and any glob
-        stem = source_hint.replace("pvz_gw2/", "").replace("*.sb", "").strip("/")
+        stem = (
+            source_hint
+            .replace("pvz_gw2/", "")
+            .replace("characters/", "")
+            .replace("*.sb", "")
+            .strip("/")
+        )
         # pick first file whose relative path contains the stem
         for wav in self.raw_dir.rglob("*.wav"):
             rel = str(wav.relative_to(self.raw_dir)).replace("\\", "/").lower()

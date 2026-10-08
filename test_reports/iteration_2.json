@@ -1,0 +1,37 @@
+{
+  "summary": "Ran 15 pytest cases covering first_run main.py CLI flows, expand_sounds.py generator, 6 JSON preflight sheets structural checks, and SoundMapper._resolve_source(). 14 passed, 1 failed. All CLI scenarios in the review request (fallback manifest on Linux, --once short-circuit, vscript stub '::MANIFEST_COUNT <- 0;', missing frostbite_dump.exe graceful handling) work correctly. expand_sounds.py produced 140 rules across all 8 kits. All 6 preflight JSONs parse valid; characters.json has 4 BLU + 4 RED, melty.recipe.json has 5 phases, hooks.json has 10 touch_points each with 'reversible'. One real bug surfaced in SoundMapper._resolve_source().",
+  "backend_issues": {
+    "critical": [
+      {
+        "endpoint": "mapper.SoundMapper._resolve_source()",
+        "issue": "Resolver only strips the 'pvz_gw2/' prefix from gw2_source, leaving 'characters/plants/<kit>/vo/<cat>' as the match stem. But the extractor contract (and generated gw2_source hints from expand_sounds.py) implies the flat raw/ layout is keyed WITHOUT the leading 'characters/' segment (team/kit/vo/... — plants|zombies). With the test rule gw2_source='pvz_gw2/characters/plants/peashooter/vo/battlecry/*.sb' and file at raw/plants/peashooter/vo/battlecry/pea_01.wav, resolution returns None. In practice NO rule will ever resolve during full-extraction mode — rebuild_game_sounds() will always return 0. Fix: also strip a leading 'characters/' token from the stem (or build the stem from the trailing kit/vo/category tokens).",
+        "priority": "HIGH"
+      }
+    ],
+    "minor": []
+  },
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [
+    "/app/backend/tests/test_pvz_gw2_mod.py",
+    "/app/test_reports/pytest/pvz_gw2_results.xml"
+  ],
+  "action_items": [
+    "Fix SoundMapper._resolve_source() stem construction so hints like 'pvz_gw2/characters/plants/peashooter/vo/battlecry/*.sb' match the actual flat raw/plants/peashooter/vo/battlecry/*.wav layout. Simplest patch: stem = source_hint.replace('pvz_gw2/', '').replace('characters/', '').replace('*.sb', '').strip('/')"
+  ],
+  "critical_code_review_comments": [
+    "mapper.py: _resolve_source() substring matching is fragile. Linking the 'characters/' prefix drop would make it work, but a safer design is to use the trailing 2-3 path tokens (kit + category) as the match key.",
+    "extractor.py line 45: `shutil.which(str(self.binary))` with an absolute path is a no-op on PATH lookup; the `os.access(..., os.X_OK)` fallback is what actually validates. Minor, but the compound condition is misleading.",
+    "main.py: resolve_mod_root() returns here.parent.parent but the helper lives at mod/bin/pvz_gw2_first_run/, so .parent.parent = mod/ — correct, but comment claims '.../pvz_gw2_kit/'. Comment is stale.",
+    "main.py: looks for sounds.json/characters.json at mod_root.parent — this only works when mod_root is the kit folder living inside /app/mod/. When user passes --mod-root to an arbitrary tmp folder (as in testing), mapping silently skips. Consider also checking mod_root itself or an explicit --preflight-dir arg.",
+    "expand_sounds.py: hardcodes relative path 'mod/characters.json' — only runs from /app. Review request explicitly notes this; worth documenting in --help or deriving path from the script location."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_pvz_gw2_mod.py"
+  ],
+  "success_rate": {"backend": "93% (14/15)", "frontend": "N/A - skipped per request"},
+  "seed_data_creation": "Tests create ephemeral mod roots and fake GW2 install dirs under pytest tmp_path. No persistent seed data.",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Reusable pytest suite at /app/backend/tests/test_pvz_gw2_mod.py. 15 tests across TestFirstRunMain (4), TestExpandSounds (1), TestPreflightSheets (9 parametrized/structural), TestSoundMapperResolve (1). The one failing test TestSoundMapperResolve::test_resolve_source_matches_flat_raw_dir asserts the exact scenario in the review request and reflects a real logic bug. If the main agent patches mapper.py, rerun just this suite with: pytest /app/backend/tests/test_pvz_gw2_mod.py -v",
+  "rca of the issue": "SoundMapper._resolve_source() builds a match stem by stripping only 'pvz_gw2/' and the '*.sb' glob, leaving 'characters/<team>/<kit>/vo/<cat>'. The extractor writes WAVs under cache/raw/ with paths that do NOT include a 'characters/' segment (per the brief: flat raw/<team>/<kit>/vo/<cat>/*.wav). The substring check `stem.lower() in rel` therefore never matches. Reproduction: create raw/plants/peashooter/vo/battlecry/pea_01.wav and call _resolve_source('pvz_gw2/characters/plants/peashooter/vo/battlecry/*.sb') — returns None. Mitigation: strip 'characters/' from stem OR match on the trailing 3 path components (team/kit/vo/category) rather than full substring."
+}
