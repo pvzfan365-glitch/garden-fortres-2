@@ -1,0 +1,250 @@
+// pvz_gw2_kit - new VO + weapon sound events
+// Only NEW entries. Stock TF2 entries are untouched.
+// Wave paths resolve to tf/custom/pvz_gw2_kit/sound/cache/* which the
+// first-run extractor populates from the player's GW2 install.
+// If a wave is missing, Source silently falls back and the matching stock
+// TF2 event continues to play (handled via vscripts/pvz_vo_gate.nut).
+
+"Peashooter.BattleCry"
+{
+    "channel"       "CHAN_VOICE"
+    "soundlevel"    "SNDLVL_75dB"
+    "volume"        "1.0"
+    "pitch"         "95,105"
+    "rndwave"
+    {
+        "wave" "vo/peashooter_battlecry01.wav"
+        "wave" "vo/peashooter_battlecry02.wav"
+        "wave" "vo/peashooter_battlecry03.wav"
+    }
+}
+
+"Peashooter.PainSevere"
+{
+    "channel"       "CHAN_VOICE"
+    "soundlevel"    "SNDLVL_75dB"
+    "volume"        "1.0"
+    "pitch"         "95,105"
+    "rndwave"
+    {
+        "wave" "vo/peashooter_painseverehot01.wav"
+        "wave" "vo/peashooter_painseverehot02.wav"
+    }
+}
+
+"Peashooter.Taunt"
+{
+    "channel"       "CHAN_STATIC"
+    "soundlevel"    "SNDLVL_80dB"
+    "volume"        "1.0"
+    "pitch"         "100"
+    "wave"          "vo/peashooter_taunts01.wav"
+}
+
+"Chomper.BattleCry"
+{
+    "channel"       "CHAN_VOICE"
+    "soundlevel"    "SNDLVL_75dB"
+    "volume"        "1.0"
+    "pitch"         "90,110"
+    "rndwave"
+    {
+        "wave" "vo/chomper_battlecry01.wav"
+        "wave" "vo/chomper_battlecry02.wav"
+    }
+}
+
+"Chomper.PainSevere"
+{
+    "channel"       "CHAN_VOICE"
+    "soundlevel"    "SNDLVL_75dB"
+    "volume"        "1.0"
+    "pitch"         "95,105"
+    "wave"          "vo/chomper_painseverehot01.wav"
+}
+
+"Sunflower.MedicCall"
+{
+    "channel"       "CHAN_VOICE"
+    "soundlevel"    "SNDLVL_80dB"
+    "volume"        "1.0"
+    "pitch"         "100"
+    "wave"          "vo/sunflower_medic01.wav"
+}
+
+"Sunflower.Thanks"
+{
+    "channel"       "CHAN_VOICE"
+    "soundlevel"    "SNDLVL_75dB"
+    "volume"        "1.0"
+    "pitch"         "100"
+    "wave"          "vo/sunflower_thanks01.wav"
+}
+
+"Cactus.BattleCry"
+{
+    "channel"       "CHAN_VOICE"
+    "soundlevel"    "SNDLVL_75dB"
+    "volume"        "1.0"
+    "pitch"         "95,105"
+    "rndwave"
+    {
+        "wave" "vo/cactus_battlecry01.wav"
+        "wave" "vo/cactus_battlecry02.wav"
+    }
+}
+
+"Cactus.Mark"
+{
+    "channel"       "CHAN_VOICE"
+    "soundlevel"    "SNDLVL_80dB"
+    "volume"        "1.0"
+    "pitch"         "100"
+    "wave"          "vo/cactus_jarate01.wav"
+}
+
+"Imp.BattleCry"
+{
+    "channel"       "CHAN_VOICE"
+    "soundlevel"    "SNDLVL_75dB"
+    "volume"        "1.0"
+    "pitch"         "100,115"
+    "rndwave"
+    {
+        "wave" "vo/imp_battlecry01.wav"
+        "wave" "vo/imp_battlecry02.wav"
+    }
+}
+
+"Imp.PainSevere"
+{
+    "channel"       "CHAN_VOICE"
+    "soundlevel"    "SNDLVL_75dB"
+    "volume"        "1.0"
+    "pitch"         "100,115"
+    "wave"          "vo/imp_painseverehot01.wav"
+}
+
+"Scientist.BattleCry"
+{
+    "channel"       "CHAN_VOICE"
+    "soundlevel"    "SNDLVL_75dB"
+    "volume"        "1.0"
+    "pitch"         "95,105"
+    "rndwave"
+    {
+        "wave" "vo/scientist_battlecry01.wav"
+        "wave" "vo/scientist_battlecry02.wav"
+    }
+}
+
+"Scientist.HealCall"
+{
+    "channel"       "CHAN_VOICE"
+    "soundlevel"    "SNDLVL_80dB"
+    "volume"        "1.0"
+    "pitch"         "100"
+    "wave"          "vo/scientist_medic01.wav"
+}
+
+"AllStar.BattleCry"
+{
+    "channel"       "CHAN_VOICE"
+    "soundlevel"    "SNDLVL_80dB"
+    "volume"        "1.0"
+    "pitch"         "90,100"
+    "rndwave"
+    {
+        "wave" "vo/all_star_battlecry01.wav"
+        "wave" "vo/all_star_battlecry02.wav"
+    }
+}
+
+"AllStar.Taunt"
+{
+    "channel"       "CHAN_STATIC"
+    "soundlevel"    "SNDLVL_80dB"
+    "volume"        "1.0"
+    "pitch"         "100"
+    "wave"          "vo/all_star_taunts01.wav"
+}
+
+"FootSoldier.BattleCry"
+{
+    "channel"       "CHAN_VOICE"
+    "soundlevel"    "SNDLVL_80dB"
+    "volume"        "1.0"
+    "pitch"         "90,100"
+    "rndwave"
+    {
+        "wave" "vo/foot_soldier_battlecry01.wav"
+        "wave" "vo/foot_soldier_battlecry02.wav"
+    }
+}
+
+// ===== Weapons =====
+
+"Weapon_Peashooter.Shoot"
+{
+    "channel"       "CHAN_WEAPON"
+    "soundlevel"    "SNDLVL_GUNFIRE"
+    "volume"        "0.9"
+    "pitch"         "100"
+    "wave"          "weapons/peashooter_shoot.wav"
+}
+
+"Weapon_Peashooter.Reload"
+{
+    "channel"       "CHAN_ITEM"
+    "soundlevel"    "SNDLVL_NORM"
+    "volume"        "0.8"
+    "pitch"         "100"
+    "wave"          "weapons/peashooter_reload.wav"
+}
+
+"Weapon_ZPG.Shoot"
+{
+    "channel"       "CHAN_WEAPON"
+    "soundlevel"    "SNDLVL_GUNFIRE"
+    "volume"        "1.0"
+    "pitch"         "100"
+    "wave"          "weapons/zpg_fire.wav"
+}
+
+"Weapon_AllStar.Minigun"
+{
+    "channel"       "CHAN_WEAPON"
+    "soundlevel"    "SNDLVL_GUNFIRE"
+    "volume"        "1.0"
+    "pitch"         "100"
+    "wave"          "weapons/all_star_minigun.wav"
+}
+
+"Weapon_Cactus.Spike"
+{
+    "channel"       "CHAN_WEAPON"
+    "soundlevel"    "SNDLVL_GUNFIRE"
+    "volume"        "0.95"
+    "pitch"         "100"
+    "wave"          "weapons/cactus_spike.wav"
+}
+
+// ===== Music / stingers =====
+
+"Music.PlantsRoundStart"
+{
+    "channel"       "CHAN_STATIC"
+    "soundlevel"    "SNDLVL_NONE"
+    "volume"        "1.0"
+    "pitch"         "100"
+    "wave"          "music/plants_round_start.wav"
+}
+
+"Music.ZombiesRoundStart"
+{
+    "channel"       "CHAN_STATIC"
+    "soundlevel"    "SNDLVL_NONE"
+    "volume"        "1.0"
+    "pitch"         "100"
+    "wave"          "music/zombies_round_start.wav"
+}

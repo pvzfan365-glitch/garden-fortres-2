@@ -1,0 +1,52 @@
+"lang"
+{
+"Language" "English"
+"Tokens"
+{
+// ===== PvZ GW2 Kit v0.1 — class name overrides =====
+// NOTE: TF2 ships this file as UTF-16 LE with BOM. On the Windows build machine, convert this file with:
+//   powershell -Command "(Get-Content '.\tf_english.txt' -Raw) | Out-File -Encoding Unicode '.\tf_english.txt'"
+// The build script (build/pack_vpk.ps1) does this automatically before packing.
+
+// --- Class names on scoreboard, class-pick strip, team-select menu ---
+"TF_Class_Name_Scout"       "Peashooter / Imp"
+"TF_Class_Name_Pyro"        "Chomper"
+"TF_Class_Name_Medic"       "Sunflower"
+"TF_Class_Name_Sniper"      "Cactus"
+"TF_Class_Name_Engineer"    "Scientist"
+"TF_Class_Name_Heavy"       "All-Star"
+"TF_Class_Name_Soldier"     "Foot Soldier"
+"TF_Class_Name_Spy"         "Spy"
+"TF_Class_Name_Demoman"     "Demoman"
+
+// --- Class-select screen blurbs ---
+"TF_ClassSelect_Scout_Title"    "Peashooter (BLU) / Imp (RED)"
+"TF_ClassSelect_Pyro_Title"     "Chomper"
+"TF_ClassSelect_Medic_Title"    "Sunflower"
+"TF_ClassSelect_Sniper_Title"   "Cactus"
+"TF_ClassSelect_Engineer_Title" "Scientist"
+"TF_ClassSelect_Heavy_Title"    "All-Star"
+"TF_ClassSelect_Soldier_Title"  "Foot Soldier"
+
+"TF_ClassSelect_Scout_Desc_BLU"    "Fast, ranged, obnoxious. Pea by pea you win."
+"TF_ClassSelect_Scout_Desc_RED"    "Small. Loud. Twin blasters. Terrible attitude."
+"TF_ClassSelect_Pyro_Desc"         "Get in close. Swallow whole. No questions."
+"TF_ClassSelect_Medic_Desc"        "Beam of sunshine. Also beam of healing. Mostly healing."
+"TF_ClassSelect_Sniper_Desc"       "Spikes at range. Potato mines up close. Prickly either way."
+"TF_ClassSelect_Engineer_Desc"     "Heal buddies. Goo-bomb enemies. Warp away. Easy day at the lab."
+"TF_ClassSelect_Heavy_Desc"        "Football helmet. Chain gun. Tackle. Touchdown."
+"TF_ClassSelect_Soldier_Desc"      "ZPG. Rocket jumps. Yelling. The usual."
+
+// --- Team labels ---
+"TF_TeamsSwitch_Red"        "Zombies"
+"TF_TeamsSwitch_Blue"       "Plants"
+"TF_Team_Red"               "Zombies"
+"TF_Team_Blue"              "Plants"
+
+// --- Welcome / attribution strings read by VScript ---
+"PvZGW2_Welcome_Loaded"     "PvZ GW2 x TF2 v0.1 - Loaded %s1 GW2 sounds from your install."
+"PvZGW2_Welcome_Fallback"   "PvZ GW2 x TF2 v0.1 - GW2 install not found. Running with stock TF2 audio. Run bin\\pvz_gw2_first_run.exe to retry."
+"PvZGW2_CornerTag"          "PvZ GW2 x TF2 v0.1"
+"PvZGW2_Credit"             "GW2 audio (c) PopCap / EA - loaded from your install, never redistributed."
+}
+}

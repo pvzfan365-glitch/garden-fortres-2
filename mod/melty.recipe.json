@@ -1,5 +1,5 @@
 {
-  "schema_version": "0.1",
+  "schema_version": "0.2",
   "recipe_version": "0.1.0",
   "mod_id": "pvz_gw2_kit",
   "title": "Garden Warfare: Mercenary Edition",
@@ -20,18 +20,33 @@
     "resolution_strategy": [
       "ea_desktop_is_manifest",
       "origin_registry",
-      "steam_fallback",
+      "steam_libraryfolders",
+      "default_paths",
       "user_prompted_folder"
     ],
     "never_redistributed": true,
     "assets_scope": ["sound/vo", "sound/weapons", "sound/music/taunts", "sound/music/stingers", "strings/hud_names"]
+  },
+  "payload": {
+    "vpk": {
+      "source_root": "mod/pvz_gw2_kit/",
+      "output_path": "mod/dist/pvz_gw2_kit.vpk",
+      "pack_script": "mod/build/pack_vpk.ps1",
+      "install_to":  "{{tf2_install}}/tf/custom/pvz_gw2_kit.vpk"
+    },
+    "helper": {
+      "source_root": "mod/bin/pvz_gw2_first_run/",
+      "build_script": "mod/bin/pvz_gw2_first_run/build.ps1",
+      "output_path": "mod/pvz_gw2_kit/bin/pvz_gw2_first_run.exe",
+      "run_mode": "pre_launch_once"
+    }
   },
   "entry_point": {
     "command": "tf2.exe",
     "args": ["-game", "tf", "-insecure", "+exec", "autoexec", "+map", "koth_harvest_final"],
     "working_dir": "{{tf2_install}}",
     "pre_launch": [
-      "{{mod_dir}}/bin/pvz_gw2_first_run.exe --quiet --once"
+      "{{tf2_install}}/tf/custom/pvz_gw2_kit/bin/pvz_gw2_first_run.exe --quiet --once"
     ]
   },
   "install_layout": {
@@ -39,46 +54,46 @@
     "subpaths": ["sound/", "resource/", "scripts/", "cfg/", "addons/", "bin/"]
   },
   "phases": [
-    { "phase": 1, "name": "Preflight Sheets",          "status": "done",     "artifacts": ["characters.json", "sounds.json", "maps.json", "hooks.json", "melty.recipe.json"] },
-    { "phase": 2, "name": "Static VPK",                "status": "planned",  "verification": "koth_harvest launches with PvZ names, no GW2 audio yet" },
-    { "phase": 3, "name": "GW2 Locator + Extractor",   "status": "planned",  "verification": "One Peashooter battlecry audible in-game" },
-    { "phase": 4, "name": "Full Audio Pass",           "status": "planned",  "verification": "All 8 kits speaking, taunts musical, stingers on round start" },
-    { "phase": 5, "name": "Package + Melty Publish",   "status": "planned",  "verification": "inspect_package → validate_recipe → one_click_check → draft → screenshot → publish" }
+    { "phase": 1, "name": "Preflight Sheets",          "status": "done",     "artifacts": ["mod/characters.json", "mod/sounds.json", "mod/maps.json", "mod/hooks.json", "mod/melty.recipe.json"] },
+    { "phase": 2, "name": "Static VPK",                "status": "done_sources_awaiting_pack", "artifacts": ["mod/pvz_gw2_kit/resource/tf_english.txt", "mod/pvz_gw2_kit/resource/ui/scoreboard.res", "mod/pvz_gw2_kit/resource/ui/classselection.res", "mod/pvz_gw2_kit/scripts/game_sounds_vo.txt", "mod/pvz_gw2_kit/scripts/vscripts/*.nut", "mod/pvz_gw2_kit/cfg/autoexec.cfg", "mod/pvz_gw2_kit/cfg/mods/pvz_gw2_kit.cfg"], "verification": "Run mod/build/pack_vpk.ps1 on Windows -> drop .vpk into tf/custom/ -> launch TF2 -> KOTH Harvest loads with PvZ names, bots forced to the right classes" },
+    { "phase": 3, "name": "GW2 Locator + Extractor",   "status": "done_strings_only", "artifacts": ["mod/bin/pvz_gw2_first_run/*.py", "mod/bin/pvz_gw2_first_run/build.ps1"], "verification": "python main.py prints 'GW2 install found at: ...' + writes manifest.json with mode=strings_only; after dropping a license-clean frostbite_dump.exe and re-running with --enable-extraction, one Peashooter line audible in-game" },
+    { "phase": 4, "name": "Full Audio Pass",           "status": "done_template",     "artifacts": ["mod/sounds.full.json (140 rules)", "mod/tools/expand_sounds.py"], "verification": "sounds.full.json rules >= 100 and every kit has >=5 categories (confirmed: 140 rules, 8 kits x 6-9 categories each)" },
+    { "phase": 5, "name": "Package + Melty Publish",   "status": "awaiting_local_build", "verification": "Local Claude Code: pack_vpk.ps1 -> build.ps1 -> upload to Melty -> inspect_package pass -> validate_recipe pass -> one_click_check pass -> screenshot -> publish" }
   ],
   "risks": [
     {
       "id": "R-001",
       "title": "Frostbite audio extraction redistribution",
       "severity": "high",
-      "mitigation": "Investigate license-clean route (DICE DUMP / Frosty's redistributable headers). If none, fallback to GW2 strings-only v1 (names, taunt titles) with stock TF2 audio."
+      "mitigation": "Shipping v1 in STRINGS-ONLY MODE by default. Helper detects a user-supplied frostbite_dump.exe at runtime; absent that, mod boots with HUD names + stock TF2 audio. No bundled decoder -> no license question."
     },
     {
       "id": "R-002",
       "title": "EA Desktop IS manifest format drift (2025 update)",
       "severity": "med",
-      "mitigation": "Multi-strategy locator with user-prompted folder fallback."
+      "mitigation": "locator.py tolerates installPath/InstallPath/installLocation keys and falls through to Origin registry -> Steam -> defaults -> user-prompted folder."
     },
     {
       "id": "R-003",
-      "title": "one_click_check may flag Python helper .exe",
+      "title": "one_click_check may flag the helper .exe",
       "severity": "med",
-      "mitigation": "PyInstaller single-file build + document in recipe. Code-sign if cert available."
+      "mitigation": "PyInstaller single-file build; no network calls; manifest-gated single-run (--once). Code-sign on the build machine if a cert is available."
     },
     {
       "id": "R-004",
-      "title": "No gameplay footage until build runs",
+      "title": "No gameplay footage until build runs on Windows",
       "severity": "low",
-      "mitigation": "Ship fallback-mode screenshot honestly if extraction fails on capture machine."
+      "mitigation": "Screenshot captured on the Windows build run. Show fallback mode plainly if frostbite_dump isn't provided."
     }
   ],
   "melty_checks_expected": {
-    "inspect_package": "pass — no vanilla files edited in-place",
-    "validate_recipe": "pass — primary.catalog_source=melty_official, secondary.never_redistributed=true",
-    "one_click_check": "pass pending R-003 mitigation"
+    "inspect_package": "pass - no vanilla files edited in-place (confirmed in mod/hooks.json)",
+    "validate_recipe": "pass - primary.catalog_source=melty_official, secondary.never_redistributed=true",
+    "one_click_check": "pass - pending R-003 .exe signature on build machine"
   },
   "open_items_before_publish": [
-    "Publish handle (ask user once)",
-    "Frostbite extractor license decision (ask user if yes/no needed)",
-    "Playtested tf_bot_* cvars confirmed from maps.json"
+    "Publish handle (ask user once at create_mod time)",
+    "Frostbite extractor decision: ship strings-only (default, zero legal risk) or supply frostbite_dump.exe (user obtains it themselves)",
+    "Playtested tf_bot_* cvars confirmed from one 4v4 KOTH session"
   ]
 }
