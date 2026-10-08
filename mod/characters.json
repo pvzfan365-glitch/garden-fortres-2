@@ -1,0 +1,184 @@
+{
+  "schema_version": "0.1",
+  "mod_id": "pvz_gw2_kit",
+  "primary_game": "tf2",
+  "secondary_game": "pvz_gw2",
+  "notes": "TF2 models/animations stay. Only audio and strings come from GW2. Melty-compliant: secondary read live from player's install, never redistributed.",
+  "teams": {
+    "BLU": "Plants",
+    "RED": "Zombies"
+  },
+  "kits": [
+    {
+      "slot": 1,
+      "team": "BLU",
+      "tf2_class": "scout",
+      "gw2_character": "peashooter",
+      "hud_name": "Peashooter",
+      "scoreboard_label": "Peashooter",
+      "class_select_blurb": "Fast, ranged, obnoxious. Pea by pea you win.",
+      "vo_source_prefix": "pvz_gw2/characters/plants/peashooter/vo/",
+      "vo_target_prefix": "sound/vo/scout/",
+      "weapon_slot_map": {
+        "primary":   { "tf2": "scattergun",   "gw2_fire": "peashooter/weapon/pea_fire",   "gw2_reload": "peashooter/weapon/pea_reload" },
+        "secondary": { "tf2": "pistol",       "gw2_fire": "peashooter/weapon/pea_alt",    "gw2_reload": null },
+        "melee":     { "tf2": "bat",          "gw2_fire": "peashooter/weapon/pea_melee",  "gw2_reload": null }
+      },
+      "taunt_music_source": "pvz_gw2/characters/plants/peashooter/taunts/dance_01",
+      "round_start_stinger": "pvz_gw2/global/stingers/plants_round_start",
+      "fallback_vo": "stock_tf2_scout",
+      "status": "planned"
+    },
+    {
+      "slot": 2,
+      "team": "BLU",
+      "tf2_class": "pyro",
+      "gw2_character": "chomper",
+      "hud_name": "Chomper",
+      "scoreboard_label": "Chomper",
+      "class_select_blurb": "Get in close. Swallow whole. No questions.",
+      "vo_source_prefix": "pvz_gw2/characters/plants/chomper/vo/",
+      "vo_target_prefix": "sound/vo/pyro/",
+      "weapon_slot_map": {
+        "primary":   { "tf2": "flamethrower", "gw2_fire": "chomper/weapon/goop_fire",     "gw2_reload": "chomper/weapon/goop_reload" },
+        "secondary": { "tf2": "shotgun",      "gw2_fire": "chomper/weapon/burrow_pop",    "gw2_reload": null },
+        "melee":     { "tf2": "fireaxe",      "gw2_fire": "chomper/weapon/chomp_bite",    "gw2_reload": null }
+      },
+      "taunt_music_source": "pvz_gw2/characters/plants/chomper/taunts/dance_01",
+      "round_start_stinger": "pvz_gw2/global/stingers/plants_round_start",
+      "fallback_vo": "stock_tf2_pyro",
+      "status": "planned"
+    },
+    {
+      "slot": 3,
+      "team": "BLU",
+      "tf2_class": "medic",
+      "gw2_character": "sunflower",
+      "hud_name": "Sunflower",
+      "scoreboard_label": "Sunflower",
+      "class_select_blurb": "Beam of sunshine. Also beam of healing. Mostly healing.",
+      "vo_source_prefix": "pvz_gw2/characters/plants/sunflower/vo/",
+      "vo_target_prefix": "sound/vo/medic/",
+      "weapon_slot_map": {
+        "primary":   { "tf2": "syringegun",   "gw2_fire": "sunflower/weapon/sunbeam_fire",   "gw2_reload": "sunflower/weapon/sunbeam_cooldown" },
+        "secondary": { "tf2": "medigun",      "gw2_fire": "sunflower/weapon/heal_beam_loop", "gw2_reload": null },
+        "melee":     { "tf2": "bonesaw",      "gw2_fire": "sunflower/weapon/petal_slap",     "gw2_reload": null }
+      },
+      "taunt_music_source": "pvz_gw2/characters/plants/sunflower/taunts/dance_01",
+      "round_start_stinger": "pvz_gw2/global/stingers/plants_round_start",
+      "fallback_vo": "stock_tf2_medic",
+      "status": "planned"
+    },
+    {
+      "slot": 4,
+      "team": "BLU",
+      "tf2_class": "sniper",
+      "gw2_character": "cactus",
+      "hud_name": "Cactus",
+      "scoreboard_label": "Cactus",
+      "class_select_blurb": "Spikes at range. Potato mines up close. Prickly either way.",
+      "vo_source_prefix": "pvz_gw2/characters/plants/cactus/vo/",
+      "vo_target_prefix": "sound/vo/sniper/",
+      "weapon_slot_map": {
+        "primary":   { "tf2": "sniperrifle",  "gw2_fire": "cactus/weapon/spike_shot",     "gw2_reload": "cactus/weapon/spike_reload" },
+        "secondary": { "tf2": "smg",          "gw2_fire": "cactus/weapon/potato_mine",    "gw2_reload": null },
+        "melee":     { "tf2": "kukri",        "gw2_fire": "cactus/weapon/thorn_slash",    "gw2_reload": null }
+      },
+      "taunt_music_source": "pvz_gw2/characters/plants/cactus/taunts/dance_01",
+      "round_start_stinger": "pvz_gw2/global/stingers/plants_round_start",
+      "fallback_vo": "stock_tf2_sniper",
+      "status": "planned"
+    },
+    {
+      "slot": 5,
+      "team": "RED",
+      "tf2_class": "scout",
+      "gw2_character": "imp",
+      "hud_name": "Imp",
+      "scoreboard_label": "Imp",
+      "class_select_blurb": "Small. Loud. Twin blasters. Terrible attitude.",
+      "vo_source_prefix": "pvz_gw2/characters/zombies/imp/vo/",
+      "vo_target_prefix": "sound/vo/scout/",
+      "weapon_slot_map": {
+        "primary":   { "tf2": "scattergun",   "gw2_fire": "imp/weapon/blaster_fire",      "gw2_reload": "imp/weapon/blaster_reload" },
+        "secondary": { "tf2": "pistol",       "gw2_fire": "imp/weapon/gravity_grenade",   "gw2_reload": null },
+        "melee":     { "tf2": "bat",          "gw2_fire": "imp/weapon/imp_punt",          "gw2_reload": null }
+      },
+      "taunt_music_source": "pvz_gw2/characters/zombies/imp/taunts/dance_01",
+      "round_start_stinger": "pvz_gw2/global/stingers/zombies_round_start",
+      "fallback_vo": "stock_tf2_scout",
+      "status": "planned",
+      "note": "RED Scout shares TF2 class with BLU Scout — mod must gate VO by team to avoid cross-team leakage. See hooks.json#vo_team_gating."
+    },
+    {
+      "slot": 6,
+      "team": "RED",
+      "tf2_class": "engineer",
+      "gw2_character": "scientist",
+      "hud_name": "Scientist",
+      "scoreboard_label": "Scientist",
+      "class_select_blurb": "Heal buddies. Goo-bomb enemies. Warp away. Easy day at the lab.",
+      "vo_source_prefix": "pvz_gw2/characters/zombies/scientist/vo/",
+      "vo_target_prefix": "sound/vo/engineer/",
+      "weapon_slot_map": {
+        "primary":   { "tf2": "shotgun",      "gw2_fire": "scientist/weapon/goo_blaster", "gw2_reload": "scientist/weapon/goo_reload" },
+        "secondary": { "tf2": "pistol",       "gw2_fire": "scientist/weapon/sticky_goo",  "gw2_reload": null },
+        "melee":     { "tf2": "wrench",       "gw2_fire": "scientist/weapon/petri_whack", "gw2_reload": null }
+      },
+      "taunt_music_source": "pvz_gw2/characters/zombies/scientist/taunts/dance_01",
+      "round_start_stinger": "pvz_gw2/global/stingers/zombies_round_start",
+      "fallback_vo": "stock_tf2_engineer",
+      "status": "planned"
+    },
+    {
+      "slot": 7,
+      "team": "RED",
+      "tf2_class": "heavy",
+      "gw2_character": "all_star",
+      "hud_name": "All-Star",
+      "scoreboard_label": "All-Star",
+      "class_select_blurb": "Football helmet. Chain gun. Tackle. Touchdown.",
+      "vo_source_prefix": "pvz_gw2/characters/zombies/all_star/vo/",
+      "vo_target_prefix": "sound/vo/heavy/",
+      "weapon_slot_map": {
+        "primary":   { "tf2": "minigun",      "gw2_fire": "all_star/weapon/imp_punt_loop", "gw2_reload": "all_star/weapon/chain_reload" },
+        "secondary": { "tf2": "shotgun",      "gw2_fire": "all_star/weapon/footlong",      "gw2_reload": null },
+        "melee":     { "tf2": "fists",        "gw2_fire": "all_star/weapon/tackle_hit",    "gw2_reload": null }
+      },
+      "taunt_music_source": "pvz_gw2/characters/zombies/all_star/taunts/dance_01",
+      "round_start_stinger": "pvz_gw2/global/stingers/zombies_round_start",
+      "fallback_vo": "stock_tf2_heavy",
+      "status": "planned"
+    },
+    {
+      "slot": 8,
+      "team": "RED",
+      "tf2_class": "soldier",
+      "gw2_character": "foot_soldier",
+      "hud_name": "Foot Soldier",
+      "scoreboard_label": "Foot Soldier",
+      "class_select_blurb": "ZPG. Rocket jumps. Yelling. The usual.",
+      "vo_source_prefix": "pvz_gw2/characters/zombies/foot_soldier/vo/",
+      "vo_target_prefix": "sound/vo/soldier/",
+      "weapon_slot_map": {
+        "primary":   { "tf2": "rocketlauncher", "gw2_fire": "foot_soldier/weapon/zpg_fire",   "gw2_reload": "foot_soldier/weapon/zpg_reload" },
+        "secondary": { "tf2": "shotgun",        "gw2_fire": "foot_soldier/weapon/zombie_stink", "gw2_reload": null },
+        "melee":     { "tf2": "shovel",         "gw2_fire": "foot_soldier/weapon/zomboss_smash", "gw2_reload": null }
+      },
+      "taunt_music_source": "pvz_gw2/characters/zombies/foot_soldier/taunts/dance_01",
+      "round_start_stinger": "pvz_gw2/global/stingers/zombies_round_start",
+      "fallback_vo": "stock_tf2_soldier",
+      "status": "planned"
+    }
+  ],
+  "open_cells": [
+    {
+      "cell": "weapon_slot_map.*.gw2_fire",
+      "blocker": "Exact Frostbite bundle paths not yet confirmed — requires one successful extraction pass to list real asset names. Current values are human-readable placeholders that must map 1:1 to extractor output."
+    },
+    {
+      "cell": "vo_source_prefix",
+      "blocker": "Same — needs Frosty-equivalent dump to confirm folder layout per character."
+    }
+  ]
+}

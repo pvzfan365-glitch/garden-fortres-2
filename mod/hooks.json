@@ -1,0 +1,129 @@
+{
+  "schema_version": "0.1",
+  "mod_id": "pvz_gw2_kit",
+  "notes": "Every place the mod touches TF2, listed so Melty's inspect_package can audit the surface area. Model/animation files are deliberately NOT touched — TF2 bodies stay, only audio and strings change.",
+  "touch_points": [
+    {
+      "hook_id": "H-001",
+      "area": "sound_namespace_override",
+      "path": "tf/custom/pvz_gw2_kit/sound/",
+      "method": "VPK file override — TF2 reads tf/custom/* ahead of tf/tf2_sound_vo_english.vpk",
+      "touches_vanilla": false,
+      "reversible": "Delete the VPK folder — TF2 falls back to stock audio instantly."
+    },
+    {
+      "hook_id": "H-002",
+      "area": "hud_strings",
+      "path": "tf/custom/pvz_gw2_kit/resource/tf_english.txt",
+      "method": "Localization key overrides for TF_Class_Name_Scout → 'Peashooter', etc. Team-specific keys where TF2 exposes them; shared keys resolved via team-detector plugin.",
+      "touches_vanilla": false,
+      "reversible": "Delete file.",
+      "keys_overridden": [
+        "TF_Class_Name_Scout",
+        "TF_Class_Name_Pyro",
+        "TF_Class_Name_Medic",
+        "TF_Class_Name_Sniper",
+        "TF_Class_Name_Engineer",
+        "TF_Class_Name_Heavy",
+        "TF_Class_Name_Soldier",
+        "TF_ClassSelect_Scout_Title",
+        "TF_ClassSelect_Pyro_Title",
+        "TF_ClassSelect_Medic_Title",
+        "TF_ClassSelect_Sniper_Title",
+        "TF_ClassSelect_Engineer_Title",
+        "TF_ClassSelect_Heavy_Title",
+        "TF_ClassSelect_Soldier_Title"
+      ]
+    },
+    {
+      "hook_id": "H-003",
+      "area": "scoreboard",
+      "path": "tf/custom/pvz_gw2_kit/resource/ui/scoreboard.res",
+      "method": "Override class label column to read from kit name instead of class name. Minor cosmetic edit.",
+      "touches_vanilla": false,
+      "reversible": "Delete file."
+    },
+    {
+      "hook_id": "H-004",
+      "area": "class_select_menu",
+      "path": "tf/custom/pvz_gw2_kit/resource/ui/classselection.res",
+      "method": "Rewrite class-pick strip buttons to show PvZ names + blurbs from characters.json.",
+      "touches_vanilla": false,
+      "reversible": "Delete file."
+    },
+    {
+      "hook_id": "H-005",
+      "area": "game_sounds_scripts",
+      "path": "tf/custom/pvz_gw2_kit/scripts/game_sounds_vo.txt",
+      "method": "Append entries for new sound events (peashooter_battlecry01 etc.) that point at wav paths produced by the extractor. Does NOT edit stock entries — new names only.",
+      "touches_vanilla": false,
+      "reversible": "Delete file."
+    },
+    {
+      "hook_id": "H-006",
+      "area": "bot_cfg",
+      "path": "tf/custom/pvz_gw2_kit/cfg/autoexec.cfg",
+      "method": "Set tf_bot_quota, difficulty, autoteambalance, map, bot adds. See maps.json.",
+      "touches_vanilla": false,
+      "reversible": "Delete file (TF2 regenerates autoexec from defaults)."
+    },
+    {
+      "hook_id": "H-007",
+      "area": "first_run_helper",
+      "path": "tf/custom/pvz_gw2_kit/bin/pvz_gw2_first_run.exe",
+      "method": "PyInstaller-packed binary (Python 3.12). On first launch: (a) locate GW2 via EA Desktop IS manifests → Origin registry → Steam fallback; (b) extract required Frostbite audio into tf/custom/pvz_gw2_kit/sound/cache/; (c) write cache/manifest.json listing what was recovered; (d) exit cleanly. Not called again unless user runs 'pvz_gw2_refresh'.",
+      "touches_vanilla": false,
+      "reversible": "Delete bin/ folder and sound/cache/ folder.",
+      "risks": [
+        "Melty one_click_check may flag the .exe. Mitigation: PyInstaller + code-sign if a cert is available; otherwise document in melty.recipe.json#risks.",
+        "Frostbite extraction legally sensitive. See risks sheet."
+      ]
+    },
+    {
+      "hook_id": "H-008",
+      "area": "vo_team_gating",
+      "path": "tf/custom/pvz_gw2_kit/addons/pvz_vo_gate.vpk",
+      "method": "Lightweight VScript (TF2 supports Squirrel VScript natively — no SourceMod / no script extender) that listens for player_spawn and swaps the active sound alias for scout based on team. Needed because BLU Scout = Peashooter but RED Scout = Imp share one game_sounds entry otherwise.",
+      "touches_vanilla": false,
+      "reversible": "Delete file.",
+      "concern": "VScript is only loaded for maps that enable it. koth_harvest_final does. Verify in Phase 2 by printing a chat line from the script on map load."
+    },
+    {
+      "hook_id": "H-009",
+      "area": "hud_welcome_message",
+      "path": "tf/custom/pvz_gw2_kit/scripts/vscripts/pvz_gw2_welcome.nut",
+      "method": "On first player_spawn after map load, print one HUD line: 'PvZ GW2 × TF2 v0.1 — Loaded N GW2 sounds from your install' (N read from cache/manifest.json). If manifest absent: 'GW2 install not found — running with stock TF2 audio. Run bin/pvz_gw2_first_run.exe to retry.'",
+      "touches_vanilla": false,
+      "reversible": "Delete file."
+    },
+    {
+      "hook_id": "H-010",
+      "area": "match_corner_tag",
+      "path": "tf/custom/pvz_gw2_kit/scripts/vscripts/pvz_gw2_cornertag.nut",
+      "method": "Draws persistent 'PvZ GW2 × TF2 v0.1' in bottom-right during matches. Uses HUDHint API, no custom HUD replacement.",
+      "touches_vanilla": false,
+      "reversible": "Delete file."
+    }
+  ],
+  "untouched_subsystems": [
+    "models/* — all TF2 models unchanged",
+    "materials/* — no texture replacement",
+    "animations — unchanged",
+    "weapon stats / tf_weapon_* scripts — unchanged (gameplay stays TF2)",
+    "achievements, cosmetics, matchmaking — untouched"
+  ],
+  "melty_compliance": {
+    "primary_only_models_animations": true,
+    "secondary_audio_strings_only": true,
+    "secondary_loaded_at_runtime_from_user_install": true,
+    "secondary_never_redistributed": true,
+    "has_graceful_fallback": true,
+    "has_visible_source_attribution": true
+  },
+  "open_cells": [
+    {
+      "cell": "H-007.risks[Frostbite]",
+      "blocker": "Pending license-clean route decision (brief open item). If no safe redistributable extractor exists, fallback: ship with GW2 metadata/strings only, document in release notes."
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "schema_version": "0.1",
+  "recipe_version": "0.1.0",
+  "mod_id": "pvz_gw2_kit",
+  "title": "Garden Warfare: Mercenary Edition",
+  "tagline": "TF2 bots in Plants vs Zombies drag. 4v4 KOTH, your GW2 audio, one click.",
+  "author_handle": "TBD_ASK_AT_PUBLISH",
+  "license": "MIT",
+  "remixable": true,
+  "primary": {
+    "game_id": "tf2",
+    "role": "host",
+    "catalog_source": "melty_official",
+    "min_version": "any_live"
+  },
+  "secondary": {
+    "game_id": "pvz_gw2",
+    "role": "audio_strings_only",
+    "catalog_source": "player_install",
+    "resolution_strategy": [
+      "ea_desktop_is_manifest",
+      "origin_registry",
+      "steam_fallback",
+      "user_prompted_folder"
+    ],
+    "never_redistributed": true,
+    "assets_scope": ["sound/vo", "sound/weapons", "sound/music/taunts", "sound/music/stingers", "strings/hud_names"]
+  },
+  "entry_point": {
+    "command": "tf2.exe",
+    "args": ["-game", "tf", "-insecure", "+exec", "autoexec", "+map", "koth_harvest_final"],
+    "working_dir": "{{tf2_install}}",
+    "pre_launch": [
+      "{{mod_dir}}/bin/pvz_gw2_first_run.exe --quiet --once"
+    ]
+  },
+  "install_layout": {
+    "target_root": "{{tf2_install}}/tf/custom/pvz_gw2_kit",
+    "subpaths": ["sound/", "resource/", "scripts/", "cfg/", "addons/", "bin/"]
+  },
+  "phases": [
+    { "phase": 1, "name": "Preflight Sheets",          "status": "done",     "artifacts": ["characters.json", "sounds.json", "maps.json", "hooks.json", "melty.recipe.json"] },
+    { "phase": 2, "name": "Static VPK",                "status": "planned",  "verification": "koth_harvest launches with PvZ names, no GW2 audio yet" },
+    { "phase": 3, "name": "GW2 Locator + Extractor",   "status": "planned",  "verification": "One Peashooter battlecry audible in-game" },
+    { "phase": 4, "name": "Full Audio Pass",           "status": "planned",  "verification": "All 8 kits speaking, taunts musical, stingers on round start" },
+    { "phase": 5, "name": "Package + Melty Publish",   "status": "planned",  "verification": "inspect_package → validate_recipe → one_click_check → draft → screenshot → publish" }
+  ],
+  "risks": [
+    {
+      "id": "R-001",
+      "title": "Frostbite audio extraction redistribution",
+      "severity": "high",
+      "mitigation": "Investigate license-clean route (DICE DUMP / Frosty's redistributable headers). If none, fallback to GW2 strings-only v1 (names, taunt titles) with stock TF2 audio."
+    },
+    {
+      "id": "R-002",
+      "title": "EA Desktop IS manifest format drift (2025 update)",
+      "severity": "med",
+      "mitigation": "Multi-strategy locator with user-prompted folder fallback."
+    },
+    {
+      "id": "R-003",
+      "title": "one_click_check may flag Python helper .exe",
+      "severity": "med",
+      "mitigation": "PyInstaller single-file build + document in recipe. Code-sign if cert available."
+    },
+    {
+      "id": "R-004",
+      "title": "No gameplay footage until build runs",
+      "severity": "low",
+      "mitigation": "Ship fallback-mode screenshot honestly if extraction fails on capture machine."
+    }
+  ],
+  "melty_checks_expected": {
+    "inspect_package": "pass — no vanilla files edited in-place",
+    "validate_recipe": "pass — primary.catalog_source=melty_official, secondary.never_redistributed=true",
+    "one_click_check": "pass pending R-003 mitigation"
+  },
+  "open_items_before_publish": [
+    "Publish handle (ask user once)",
+    "Frostbite extractor license decision (ask user if yes/no needed)",
+    "Playtested tf_bot_* cvars confirmed from maps.json"
+  ]
+}

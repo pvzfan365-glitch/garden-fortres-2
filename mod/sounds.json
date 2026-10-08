@@ -1,0 +1,312 @@
+{
+  "schema_version": "0.1",
+  "mod_id": "pvz_gw2_kit",
+  "notes": "GW2 source paths are logical names the extractor must resolve from Frostbite bundles at first-run. tf2_slot is the exact filename the TF2 engine will try to load from tf/custom/pvz_gw2_kit/sound/. Each row ships a stock-TF2 fallback so missing GW2 content never crashes the match.",
+  "categories": ["taunt", "medic_call", "thanks", "jarate", "battlecry", "pain", "death", "class_select", "weapon_fire", "weapon_reload", "round_start", "taunt_music"],
+  "team_gating": {
+    "mechanism": "TF2 cannot natively branch sound by team for a shared class. For slots that collide (scout BLU vs scout RED), we author two sound script entries with distinct wave paths and switch the active VPK via a tf_bot_force_class listener in cfg/mods/pvz_gw2_kit.cfg. See hooks.json#vo_team_gating.",
+    "collisions": ["scout (BLU=Peashooter, RED=Imp)"]
+  },
+  "rules": [
+    {
+      "rule_id": "VO-001",
+      "class": "scout",
+      "team": "BLU",
+      "kit": "peashooter",
+      "category": "battlecry",
+      "tf2_slot": "sound/vo/peashooter_battlecry01.wav",
+      "replaces_tf2": "sound/vo/scout_battlecry01.wav",
+      "gw2_source": "pvz_gw2/characters/plants/peashooter/vo/battlecry/*.sb",
+      "fallback": "stock",
+      "priority": "P0"
+    },
+    {
+      "rule_id": "VO-002",
+      "class": "scout",
+      "team": "BLU",
+      "kit": "peashooter",
+      "category": "pain",
+      "tf2_slot": "sound/vo/peashooter_painseverehot01.wav",
+      "replaces_tf2": "sound/vo/scout_painseverehot01.wav",
+      "gw2_source": "pvz_gw2/characters/plants/peashooter/vo/pain/*.sb",
+      "fallback": "stock",
+      "priority": "P0"
+    },
+    {
+      "rule_id": "VO-003",
+      "class": "scout",
+      "team": "BLU",
+      "kit": "peashooter",
+      "category": "taunt",
+      "tf2_slot": "sound/vo/peashooter_taunts01.wav",
+      "replaces_tf2": "sound/vo/scout_taunts01.wav",
+      "gw2_source": "pvz_gw2/characters/plants/peashooter/vo/taunts/*.sb",
+      "fallback": "stock",
+      "priority": "P0"
+    },
+    {
+      "rule_id": "VO-004",
+      "class": "pyro",
+      "kit": "chomper",
+      "category": "battlecry",
+      "tf2_slot": "sound/vo/chomper_battlecry01.wav",
+      "replaces_tf2": "sound/vo/pyro_battlecry01.wav",
+      "gw2_source": "pvz_gw2/characters/plants/chomper/vo/battlecry/*.sb",
+      "fallback": "stock",
+      "priority": "P0",
+      "note": "Chomper VO is largely muffled growls — maps cleanly to Pyro's masked mumbles."
+    },
+    {
+      "rule_id": "VO-005",
+      "class": "pyro",
+      "kit": "chomper",
+      "category": "pain",
+      "tf2_slot": "sound/vo/chomper_painseverehot01.wav",
+      "replaces_tf2": "sound/vo/pyro_painseverehot01.wav",
+      "gw2_source": "pvz_gw2/characters/plants/chomper/vo/pain/*.sb",
+      "fallback": "stock",
+      "priority": "P0"
+    },
+    {
+      "rule_id": "VO-006",
+      "class": "medic",
+      "kit": "sunflower",
+      "category": "medic_call",
+      "tf2_slot": "sound/vo/sunflower_medic01.wav",
+      "replaces_tf2": "sound/vo/medic_medic01.wav",
+      "gw2_source": "pvz_gw2/characters/plants/sunflower/vo/callouts/heal/*.sb",
+      "fallback": "stock",
+      "priority": "P0"
+    },
+    {
+      "rule_id": "VO-007",
+      "class": "medic",
+      "kit": "sunflower",
+      "category": "thanks",
+      "tf2_slot": "sound/vo/sunflower_thanks01.wav",
+      "replaces_tf2": "sound/vo/medic_thanks01.wav",
+      "gw2_source": "pvz_gw2/characters/plants/sunflower/vo/callouts/thanks/*.sb",
+      "fallback": "stock",
+      "priority": "P1"
+    },
+    {
+      "rule_id": "VO-008",
+      "class": "sniper",
+      "kit": "cactus",
+      "category": "battlecry",
+      "tf2_slot": "sound/vo/cactus_battlecry01.wav",
+      "replaces_tf2": "sound/vo/sniper_battlecry01.wav",
+      "gw2_source": "pvz_gw2/characters/plants/cactus/vo/battlecry/*.sb",
+      "fallback": "stock",
+      "priority": "P0"
+    },
+    {
+      "rule_id": "VO-009",
+      "class": "sniper",
+      "kit": "cactus",
+      "category": "jarate",
+      "tf2_slot": "sound/vo/cactus_jarate01.wav",
+      "replaces_tf2": "sound/vo/sniper_jarate01.wav",
+      "gw2_source": "pvz_gw2/characters/plants/cactus/vo/callouts/mark/*.sb",
+      "fallback": "stock",
+      "priority": "P2",
+      "note": "Jarate maps to Cactus's Garlic Drone marker VO — cheeky."
+    },
+    {
+      "rule_id": "VO-010",
+      "class": "scout",
+      "team": "RED",
+      "kit": "imp",
+      "category": "battlecry",
+      "tf2_slot": "sound/vo/imp_battlecry01.wav",
+      "replaces_tf2": "sound/vo/scout_battlecry01.wav",
+      "gw2_source": "pvz_gw2/characters/zombies/imp/vo/battlecry/*.sb",
+      "fallback": "stock",
+      "priority": "P0",
+      "collision_group": "scout_shared"
+    },
+    {
+      "rule_id": "VO-011",
+      "class": "scout",
+      "team": "RED",
+      "kit": "imp",
+      "category": "pain",
+      "tf2_slot": "sound/vo/imp_painseverehot01.wav",
+      "replaces_tf2": "sound/vo/scout_painseverehot01.wav",
+      "gw2_source": "pvz_gw2/characters/zombies/imp/vo/pain/*.sb",
+      "fallback": "stock",
+      "priority": "P0",
+      "collision_group": "scout_shared"
+    },
+    {
+      "rule_id": "VO-012",
+      "class": "engineer",
+      "kit": "scientist",
+      "category": "battlecry",
+      "tf2_slot": "sound/vo/scientist_battlecry01.wav",
+      "replaces_tf2": "sound/vo/engineer_battlecry01.wav",
+      "gw2_source": "pvz_gw2/characters/zombies/scientist/vo/battlecry/*.sb",
+      "fallback": "stock",
+      "priority": "P0"
+    },
+    {
+      "rule_id": "VO-013",
+      "class": "engineer",
+      "kit": "scientist",
+      "category": "medic_call",
+      "tf2_slot": "sound/vo/scientist_medic01.wav",
+      "replaces_tf2": "sound/vo/engineer_medic01.wav",
+      "gw2_source": "pvz_gw2/characters/zombies/scientist/vo/callouts/heal/*.sb",
+      "fallback": "stock",
+      "priority": "P1",
+      "note": "Engineer doesn't call medic much, but Scientist IS the healer — this is a self-chatter line."
+    },
+    {
+      "rule_id": "VO-014",
+      "class": "heavy",
+      "kit": "all_star",
+      "category": "battlecry",
+      "tf2_slot": "sound/vo/all_star_battlecry01.wav",
+      "replaces_tf2": "sound/vo/heavy_battlecry01.wav",
+      "gw2_source": "pvz_gw2/characters/zombies/all_star/vo/battlecry/*.sb",
+      "fallback": "stock",
+      "priority": "P0"
+    },
+    {
+      "rule_id": "VO-015",
+      "class": "heavy",
+      "kit": "all_star",
+      "category": "taunt",
+      "tf2_slot": "sound/vo/all_star_taunts01.wav",
+      "replaces_tf2": "sound/vo/heavy_taunts01.wav",
+      "gw2_source": "pvz_gw2/characters/zombies/all_star/vo/taunts/*.sb",
+      "fallback": "stock",
+      "priority": "P0"
+    },
+    {
+      "rule_id": "VO-016",
+      "class": "soldier",
+      "kit": "foot_soldier",
+      "category": "battlecry",
+      "tf2_slot": "sound/vo/foot_soldier_battlecry01.wav",
+      "replaces_tf2": "sound/vo/soldier_battlecry01.wav",
+      "gw2_source": "pvz_gw2/characters/zombies/foot_soldier/vo/battlecry/*.sb",
+      "fallback": "stock",
+      "priority": "P0"
+    },
+    {
+      "rule_id": "WPN-001",
+      "class": "scout",
+      "team": "BLU",
+      "kit": "peashooter",
+      "category": "weapon_fire",
+      "tf2_slot": "sound/weapons/peashooter_shoot.wav",
+      "replaces_tf2": "sound/weapons/scattergun_fire.wav",
+      "gw2_source": "pvz_gw2/characters/plants/peashooter/weapon/pea_fire.sb",
+      "fallback": "stock",
+      "priority": "P0"
+    },
+    {
+      "rule_id": "WPN-002",
+      "class": "scout",
+      "team": "BLU",
+      "kit": "peashooter",
+      "category": "weapon_reload",
+      "tf2_slot": "sound/weapons/peashooter_reload.wav",
+      "replaces_tf2": "sound/weapons/scattergun_reload.wav",
+      "gw2_source": "pvz_gw2/characters/plants/peashooter/weapon/pea_reload.sb",
+      "fallback": "stock",
+      "priority": "P1"
+    },
+    {
+      "rule_id": "WPN-003",
+      "class": "soldier",
+      "kit": "foot_soldier",
+      "category": "weapon_fire",
+      "tf2_slot": "sound/weapons/zpg_fire.wav",
+      "replaces_tf2": "sound/weapons/rocket_fire.wav",
+      "gw2_source": "pvz_gw2/characters/zombies/foot_soldier/weapon/zpg_fire.sb",
+      "fallback": "stock",
+      "priority": "P0"
+    },
+    {
+      "rule_id": "WPN-004",
+      "class": "heavy",
+      "kit": "all_star",
+      "category": "weapon_fire",
+      "tf2_slot": "sound/weapons/all_star_minigun.wav",
+      "replaces_tf2": "sound/weapons/minigun_shoot.wav",
+      "gw2_source": "pvz_gw2/characters/zombies/all_star/weapon/imp_punt_loop.sb",
+      "fallback": "stock",
+      "priority": "P0"
+    },
+    {
+      "rule_id": "WPN-005",
+      "class": "sniper",
+      "kit": "cactus",
+      "category": "weapon_fire",
+      "tf2_slot": "sound/weapons/cactus_spike.wav",
+      "replaces_tf2": "sound/weapons/sniper_fire.wav",
+      "gw2_source": "pvz_gw2/characters/plants/cactus/weapon/spike_shot.sb",
+      "fallback": "stock",
+      "priority": "P0"
+    },
+    {
+      "rule_id": "MUS-001",
+      "category": "round_start",
+      "team": "BLU",
+      "tf2_slot": "sound/music/plants_round_start.wav",
+      "replaces_tf2": "sound/misc/your_team.wav",
+      "gw2_source": "pvz_gw2/global/stingers/plants_round_start.sb",
+      "fallback": "stock",
+      "priority": "P1"
+    },
+    {
+      "rule_id": "MUS-002",
+      "category": "round_start",
+      "team": "RED",
+      "tf2_slot": "sound/music/zombies_round_start.wav",
+      "replaces_tf2": "sound/misc/your_team.wav",
+      "gw2_source": "pvz_gw2/global/stingers/zombies_round_start.sb",
+      "fallback": "stock",
+      "priority": "P1"
+    },
+    {
+      "rule_id": "MUS-003",
+      "class": "scout",
+      "team": "BLU",
+      "kit": "peashooter",
+      "category": "taunt_music",
+      "tf2_slot": "sound/music/peashooter_dance.wav",
+      "replaces_tf2": "sound/taunts/scout_dance.wav",
+      "gw2_source": "pvz_gw2/characters/plants/peashooter/taunts/dance_01.sb",
+      "fallback": "stock",
+      "priority": "P1"
+    },
+    {
+      "rule_id": "MUS-004",
+      "class": "heavy",
+      "kit": "all_star",
+      "category": "taunt_music",
+      "tf2_slot": "sound/music/all_star_dance.wav",
+      "replaces_tf2": "sound/taunts/heavy_dance.wav",
+      "gw2_source": "pvz_gw2/characters/zombies/all_star/taunts/dance_01.sb",
+      "fallback": "stock",
+      "priority": "P1"
+    }
+  ],
+  "coverage_targets": {
+    "P0_rules_needed_to_ship_v1": 16,
+    "P0_rules_authored": 16,
+    "P1_rules_authored": 7,
+    "P2_rules_authored": 1,
+    "total_rules_authored": 24,
+    "note": "Full per-line sheet (every TF2 VO slot × 8 kits) is ~400 rows. This sheet lists the structural template + every P0 slot that must play on first boot. Remaining slots are generated by the extractor via sounds.template.json (next sheet, Phase 2)."
+  },
+  "open_cells": [
+    {
+      "cell": "gw2_source",
+      "blocker": "All paths are inferred. Real Frostbite bundle layout confirmed only after Phase 3 extraction. Extractor must emit a manifest.json so this sheet can be auto-reconciled."
+    }
+  ]
+}

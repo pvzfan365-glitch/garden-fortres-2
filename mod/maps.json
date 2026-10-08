@@ -1,0 +1,64 @@
+{
+  "schema_version": "0.1",
+  "mod_id": "pvz_gw2_kit",
+  "match_mode": "koth",
+  "primary_map": {
+    "map_name": "koth_harvest_final",
+    "display_name": "Harvest",
+    "ships_with_tf2": true,
+    "reason_chosen": "Already in every TF2 install, open sightlines fit Peashooter/Cactus, hay bales fit the garden/zombie aesthetic without custom textures."
+  },
+  "bot_config": {
+    "cvars": {
+      "tf_bot_quota":           { "value": 7,   "comment": "7 bots + 1 human = 8 players for 4v4" },
+      "tf_bot_quota_mode":      { "value": "fill" },
+      "tf_bot_difficulty":      { "value": 2,   "comment": "Hard — enough challenge solo, not Expert cheese" },
+      "tf_bot_auto_vacate":     { "value": 1,   "comment": "Kick a bot if a (nonexistent) player joins — safety net" },
+      "mp_autoteambalance":     { "value": 0,   "comment": "Keep 4 BLU plants vs 4 RED zombies, no swapping" },
+      "mp_teams_unbalance_limit": { "value": 0 },
+      "mp_timelimit":           { "value": 10,  "comment": "Minutes per round — matches KOTH default" },
+      "mp_tournament":          { "value": 0 },
+      "mp_disable_respawn_times": { "value": 0 },
+      "mp_waitingforplayers_cancel": { "value": 1 },
+      "sv_cheats":              { "value": 0 }
+    },
+    "bot_class_forcing": {
+      "mechanism": "tf_bot_add + tf_bot_force_class, run from autoexec after map load",
+      "BLU": [
+        { "slot": "bot_1", "class": "scout",   "kit": "peashooter", "name": "Peashooter Bot" },
+        { "slot": "bot_2", "class": "pyro",    "kit": "chomper",    "name": "Chomper Bot" },
+        { "slot": "bot_3", "class": "medic",   "kit": "sunflower",  "name": "Sunflower Bot" }
+      ],
+      "RED": [
+        { "slot": "bot_4", "class": "scout",    "kit": "imp",          "name": "Imp Bot" },
+        { "slot": "bot_5", "class": "engineer", "kit": "scientist",    "name": "Scientist Bot" },
+        { "slot": "bot_6", "class": "heavy",    "kit": "all_star",     "name": "All-Star Bot" },
+        { "slot": "bot_7", "class": "soldier",  "kit": "foot_soldier", "name": "Foot Soldier Bot" }
+      ],
+      "note": "Human player picks any BLU class (defaults to Sniper→Cactus if auto-join). mp_autoteambalance=0 keeps the split clean."
+    }
+  },
+  "autoexec_sequence": [
+    "// cfg/mods/pvz_gw2_kit.cfg — sourced from autoexec.cfg on map load",
+    "exec pvz_gw2_cvars",
+    "map koth_harvest_final",
+    "wait 500",
+    "mp_tournament_restart",
+    "wait 100",
+    "tf_bot_add 3 Blue hard",
+    "tf_bot_add 4 Red hard",
+    "// bot class forcing runs via server plugin hook — see hooks.json#bot_class_hook"
+  ],
+  "fallback_map": {
+    "map_name": "koth_viaduct",
+    "reason": "If harvest_final isn't present (very old install), viaduct is the other guaranteed KOTH map."
+  },
+  "map_cfg_file_path": "tf/custom/pvz_gw2_kit/cfg/mods/pvz_gw2_kit.cfg",
+  "autoexec_file_path": "tf/custom/pvz_gw2_kit/cfg/autoexec.cfg",
+  "open_cells": [
+    {
+      "cell": "bot_config.cvars.tf_bot_difficulty",
+      "blocker": "Needs playtest. Open item in brief: 'Exact tf_bot_* cvars for a decent 4v4 KOTH match'."
+    }
+  ]
+}
